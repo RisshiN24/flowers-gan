@@ -76,7 +76,7 @@ def train():
             D_real = D(real_imgs, one_hot_labels)
             D_fake = D(fake_imgs.detach(), one_hot_labels)
 
-            loss_D = criterion(D_real, real_targets) + criterion(D_fake, fake_targets)
+            loss_D = criterion(D_real, real_targets) + criterion(D_fake, fake_targets) # Goal is to detect real/fake
             D.zero_grad()
             loss_D.backward()
             opt_D.step()
@@ -86,7 +86,7 @@ def train():
             fake_imgs = G(z, one_hot_labels)
             D_fake = D(fake_imgs, one_hot_labels)
 
-            loss_G = criterion(D_fake, real_targets)
+            loss_G = criterion(D_fake, real_targets) # Goal is to fool discriminator
             G.zero_grad()
             loss_G.backward()
             opt_G.step()
